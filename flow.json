@@ -1,1 +1,380 @@
-[]
+[
+    {
+        "id": "7ac5e258fe51dccd",
+        "type": "tab",
+        "label": "Enphase Solar",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2e71c9d54cbbed0c",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a0af54c0.3a7438",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false
+    },
+    {
+        "id": "5e1bce89.bfd22",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "Regelkast Influx",
+        "usetls": false,
+        "tls": "a0af54c0.3a7438",
+        "influxdbVersion": "2.0",
+        "url": "http://172.24.42.1:8086",
+        "rejectUnauthorized": false
+    },
+    {
+        "id": "7e4a659db40141e2",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "database",
+        "name": "influxdb",
+        "usetls": false,
+        "tls": "a0af54c0.3a7438",
+        "influxdbVersion": "1.8-flux",
+        "url": "http://influxdb.monitoring.svc.cluster.local:8086",
+        "rejectUnauthorized": false
+    },
+    {
+        "id": "98f5cfeb2a6a1c26",
+        "type": "mqtt-broker",
+        "name": "emqx",
+        "broker": "emqx-headless.home-automation.svc.cluster.local",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "5",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "830c8b80.f89718",
+        "type": "inject",
+        "z": "7ac5e258fe51dccd",
+        "name": "Start / Restart / Unpause stream",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 60,
+        "wires": [
+            [
+                "5944b091.17285"
+            ]
+        ]
+    },
+    {
+        "id": "de79afb2.f459b",
+        "type": "inject",
+        "z": "7ac5e258fe51dccd",
+        "name": "Pause stream",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "31c2c1a4.b6aabe"
+            ]
+        ]
+    },
+    {
+        "id": "31c2c1a4.b6aabe",
+        "type": "change",
+        "z": "7ac5e258fe51dccd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "pause",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 180,
+        "wires": [
+            [
+                "50364aa0.f4b3d4"
+            ]
+        ]
+    },
+    {
+        "id": "fc7709e7.f95788",
+        "type": "inject",
+        "z": "7ac5e258fe51dccd",
+        "name": "Stop stream",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 120,
+        "wires": [
+            [
+                "fc633663.b0ce48"
+            ]
+        ]
+    },
+    {
+        "id": "fc633663.b0ce48",
+        "type": "change",
+        "z": "7ac5e258fe51dccd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "stop",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 570,
+        "y": 120,
+        "wires": [
+            [
+                "50364aa0.f4b3d4"
+            ]
+        ]
+    },
+    {
+        "id": "5944b091.17285",
+        "type": "http request",
+        "z": "7ac5e258fe51dccd",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://192.168.10.20/installer/setup/home",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "digest",
+        "senderr": false,
+        "x": 570,
+        "y": 60,
+        "wires": [
+            [
+                "5e0c1620.061b18"
+            ]
+        ]
+    },
+    {
+        "id": "5e0c1620.061b18",
+        "type": "function",
+        "z": "7ac5e258fe51dccd",
+        "name": "Set Cookie",
+        "func": "msg.headers = {'Cookie': 'sessionId=' + msg.responseCookies.sessionId.value};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 60,
+        "wires": [
+            [
+                "50364aa0.f4b3d4"
+            ]
+        ]
+    },
+    {
+        "id": "6fa504f8fca90df3",
+        "type": "json",
+        "z": "7ac5e258fe51dccd",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1230,
+        "y": 120,
+        "wires": [
+            [
+                "29dd2e5fd14716ea"
+            ]
+        ]
+    },
+    {
+        "id": "29e442028acaef29",
+        "type": "function",
+        "z": "7ac5e258fe51dccd",
+        "name": "reconstruct data",
+        "func": "// Influx:\n// If msg.payload is an array containing two objects, \n// the first object will be written as the set of \n// named fields, the second is the set of named tags.\n\n// {\"event\":\"message\",\"payload\":{\"p\":-109.715,\"q\":-164.932,\"s\":267.003,\"v\":234.435,\"i\":1.134,\"pf\":-0.42,\"f\":50},\"parts\":{\"parts\":{\"id\":\"7f5ab7eaf0763c52\",\"type\":\"object\",\"key\":\"net-consumption\",\"index\":1,\"count\":3},\"id\":\"75bdb43ad68df8ae\",\"type\":\"object\",\"key\":\"ph-b\",\"index\":1,\"count\":3},\"topic\":\"net-consumption\",\"phase\":\"ph-b\",\"_msgid\":\"f81b1819c033b07d\"}\n\nfields = {};\ntags = {};\n\ntags   = {\"topic\": (msg.topic),\n          \"phase\": (msg.phase)\n         };\nfields = {\"wNow\": (msg.payload.p),\n          \"reactPower\": (msg.payload.q),\n          \"apprntPwr\": (msg.payload.s),\n          \"rmsVoltage\": (msg.payload.v),\n          \"rmsCurrent\": (msg.payload.i),\n          \"pwrFactor\": (msg.payload.pf),\n          \"frequency\": (msg.payload.f)\n         };\n\nmsg.payload = [fields,tags]\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 340,
+        "wires": [
+            [
+                "8e1dfedd9994b9aa",
+                "8962078420990bb5"
+            ]
+        ]
+    },
+    {
+        "id": "e498a42fbb59c40c",
+        "type": "split",
+        "z": "7ac5e258fe51dccd",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "phase",
+        "x": 1050,
+        "y": 260,
+        "wires": [
+            [
+                "29e442028acaef29"
+            ]
+        ]
+    },
+    {
+        "id": "29dd2e5fd14716ea",
+        "type": "split",
+        "z": "7ac5e258fe51dccd",
+        "name": "",
+        "splt": "",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "topic",
+        "x": 1370,
+        "y": 120,
+        "wires": [
+            [
+                "e498a42fbb59c40c"
+            ]
+        ]
+    },
+    {
+        "id": "50364aa0.f4b3d4",
+        "type": "sse-client",
+        "z": "7ac5e258fe51dccd",
+        "name": "",
+        "url": "http://192.168.10.20/stream/meter",
+        "events": [],
+        "headers": {},
+        "proxy": "",
+        "restart": true,
+        "rejectUnauthorized": false,
+        "withCredentials": true,
+        "timeout": "10",
+        "x": 1030,
+        "y": 120,
+        "wires": [
+            [
+                "6fa504f8fca90df3"
+            ]
+        ]
+    },
+    {
+        "id": "8e1dfedd9994b9aa",
+        "type": "influxdb out",
+        "z": "7ac5e258fe51dccd",
+        "influxdb": "7e4a659db40141e2",
+        "name": "Influxdb envoy_meter",
+        "measurement": "envoy_meter",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "enphase",
+        "precisionV18FluxV20": "s",
+        "retentionPolicyV18Flux": "",
+        "org": "default",
+        "bucket": "default",
+        "x": 980,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "8962078420990bb5",
+        "type": "mqtt out",
+        "z": "7ac5e258fe51dccd",
+        "name": "",
+        "topic": "enphase/",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "application/json",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "98f5cfeb2a6a1c26",
+        "x": 1400,
+        "y": 240,
+        "wires": []
+    }
+]
