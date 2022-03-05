@@ -403,21 +403,152 @@
         "type": "mqtt in",
         "z": "2e71c9d54cbbed0c",
         "name": "",
-        "topic": "zwave2mqtt/#",
+        "topic": "zwave/#",
         "qos": "2",
         "datatype": "auto",
-        "broker": "3432f2c.1ecf30e",
+        "broker": "98f5cfeb2a6a1c26",
+        "nl": false,
+        "rap": false,
         "inputs": 0,
-        "x": 290,
-        "y": 220,
+        "x": 320,
+        "y": 200,
         "wires": [
             [
-                "f009b929.f85218"
+                "f009b929.f85218",
+                "71b34bd4babde36f"
             ]
         ]
     },
     {
         "id": "ff731b0f.8d5098",
+        "type": "debug",
+        "z": "2e71c9d54cbbed0c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "f009b929.f85218",
+        "type": "zwavejs2mqtt-filter",
+        "z": "2e71c9d54cbbed0c",
+        "name": "Switch filter",
+        "prefix": "zwave",
+        "hasLocation": false,
+        "location": "",
+        "locationType": "str",
+        "nodeid": "nodeID_7",
+        "nodeidType": "str",
+        "commandClass": "37",
+        "endpoint": "1",
+        "property": "currentValue",
+        "propertyType": "str",
+        "jsonPayload": false,
+        "outputs": 1,
+        "x": 650,
+        "y": 100,
+        "wires": [
+            [
+                "ae7fcbb2c18b76da"
+            ]
+        ]
+    },
+    {
+        "id": "3292bc9d.ce8354",
+        "type": "comment",
+        "z": "2e71c9d54cbbed0c",
+        "name": "Sample filter",
+        "info": "Filters for devices named PIR, of \"Binary Sensor Command Class\" sending Motion messages.",
+        "x": 370,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "71b34bd4babde36f",
+        "type": "debug",
+        "z": "2e71c9d54cbbed0c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "ae7fcbb2c18b76da",
+        "type": "json",
+        "z": "2e71c9d54cbbed0c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 850,
+        "y": 80,
+        "wires": [
+            [
+                "200b8df9775dad18"
+            ]
+        ]
+    },
+    {
+        "id": "200b8df9775dad18",
+        "type": "split",
+        "z": "2e71c9d54cbbed0c",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "topic",
+        "x": 870,
+        "y": 260,
+        "wires": [
+            [
+                "ff731b0f.8d5098",
+                "4c8a6ec4ed01bb71"
+            ]
+        ]
+    },
+    {
+        "id": "4c8a6ec4ed01bb71",
+        "type": "switch",
+        "z": "2e71c9d54cbbed0c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 330,
+        "y": 380,
+        "wires": [
+            [
+                "a5945492625adb17"
+            ]
+        ]
+    },
+    {
+        "id": "a5945492625adb17",
         "type": "debug",
         "z": "2e71c9d54cbbed0c",
         "name": "",
@@ -429,40 +560,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 610,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "f009b929.f85218",
-        "type": "zwavejs2mqtt-filter",
-        "z": "2e71c9d54cbbed0c",
-        "name": "PIR filter",
-        "prefix": "zwave2mqtt",
-        "nodeid": "^PIR-.*$",
-        "nodeidType": "re",
-        "commandClass": "48",
-        "endpoint": "0",
-        "property": "Motion",
-        "propertyType": "str",
-        "jsonPayload": true,
-        "outputs": 1,
-        "x": 460,
-        "y": 220,
-        "wires": [
-            [
-                "ff731b0f.8d5098"
-            ]
-        ]
-    },
-    {
-        "id": "3292bc9d.ce8354",
-        "type": "comment",
-        "z": "2e71c9d54cbbed0c",
-        "name": "Sample filter",
-        "info": "Filters for devices named PIR, of \"Binary Sensor Command Class\" sending Motion messages.",
-        "x": 330,
-        "y": 160,
+        "x": 130,
+        "y": 440,
         "wires": []
     }
 ]
