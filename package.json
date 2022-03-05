@@ -3,41 +3,7 @@
     "description": "A Node-RED Project",
     "version": "0.0.1",
     "dependencies": {
-        "name": "node-red-contrib-zwavejs2mqtt",
-        "version": "0.0.3",
-        "description": "Simple Node-RED nodes for interacting with zwavejs2mqtt.",
-        "author": "Joakim Lundin <joakim.lundin@gmail.com>",
-        "license": "BSD-3-Clause",
-        "repository": {
-            "type": "git",
-            "url": "git+https://github.com/iceglow/node-red-contrib-zwave2mqtt.git"
-        },
-        "bugs": {
-            "url": "https://github.com/iceglow/node-red-contrib-zwavejs2mqtt/issues"
-        },
-        "homepage": "https://github.com/iceglow/node-red-contrib-zwavejs2mqtt#readme",
-        "main": "zwavejs2mqtt-filter.js",
-        "keywords": [
-            "node-red",
-            "deepstack"
-        ],
-        "scripts": {
-            "test": "mocha \"test/**/*_spec.js\""
-        },
-        "node-red": {
-            "nodes": {
-                "zwavejs2mqtt-filter": "zwavejs2mqtt-filter.js"
-            }
-        },
-        "dependencies": {
-            "node-red": "^1.2.9",
-            "read-excel-file": "^5.2.25"
-        },
-        "devDependencies": {
-            "chai": "^4.2.0",
-            "mocha": "^8.2.1",
-            "nock": "^13.0.5"
-        },
+        "node-red-contrib-zwavejs2mqtt": "0.0.3",
         "node-red-contrib-influxdb": "0.6.1",
         "node-red-contrib-sse-client": "0.2.2"
     },
