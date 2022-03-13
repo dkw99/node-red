@@ -118,13 +118,13 @@
             }
         ],
         "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "crontab": "*/1 4-19 * * *",
+        "once": true,
+        "onceDelay": "0.5",
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 270,
+        "x": 280,
         "y": 60,
         "wires": [
             [
